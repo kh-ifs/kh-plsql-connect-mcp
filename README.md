@@ -1,4 +1,11 @@
-# kh-plsql-connect - 2026 Kanchana Henarath (kanchana.henarath@ifs.com)
+# kh-plsql-connect
+
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Node](https://img.shields.io/badge/node-%3E%3D18-green)
+![Status](https://img.shields.io/badge/status-early--version-orange)
+![Author](https://img.shields.io/badge/author-Kanchana%20Henarath-informational)
+
+Kanchana Henarath
 
 A local MCP server that gives Cursor controlled access to one or more Oracle/PLSQL
 databases — query, browse schema, and (optionally) run PL/SQL — with per-connection
@@ -12,6 +19,26 @@ your network beyond your normal Oracle connection (which still needs your usual 
 Built for large IFS Cloud schemas as well as smaller Oracle databases: list/search
 tools are capped, editioning `_RTB` / `_TAB` names are resolved, and package source
 is split into spec and body.
+
+## Contents
+
+- [Requirements](#requirements)
+- [Recommended setup for shared use](#recommended-setup-for-shared-use)
+- [1. Install dependencies](#1-install-dependencies)
+- [2. Create your connections config](#2-create-your-connections-config)
+- [3. Set the database password](#3-set-the-database-password)
+- [4. Point Cursor at this server](#4-point-cursor-at-this-server)
+- [5. Try it](#5-try-it)
+- [Tools](#tools)
+- [Safety model](#safety-model)
+- [Roadmap](#roadmap)
+
+## Requirements
+
+- Node.js 18 or newer
+- Access to an Oracle / IFS Cloud database (host/port/service reachable — typically
+  requires your usual VPN)
+- Cursor, or any other MCP-compatible client
 
 ## Recommended setup for shared use
 
@@ -143,8 +170,8 @@ without a pattern are capped and will warn.
 | `execute_query` | Single SELECT/WITH, row-capped |
 | `explain_query` | Plan for a single SELECT |
 | `search_objects` | Best first browse step — required LIKE pattern |
-| `list_tables` | Tables/views with `kind=rtb\|tab\|lu` |
-| `list_procedures` | Packages with `kind=api\|sys\|clf\|svc\|rpi` |
+| `list_tables` | Tables/views; `kind` can be `rtb`, `tab`, or `lu` |
+| `list_procedures` | Packages; `kind` can be `api`, `sys`, `clf`, `svc`, or `rpi` |
 | `describe_table` | Columns + constraints; `_TAB` views pick up `_RTB` keys |
 | `describe_procedure` | `USER_ARGUMENTS` for `PACKAGE.METHOD` |
 | `get_procedure_source` | Spec/body split, line-capped |
@@ -163,12 +190,14 @@ This is a safety net, not a substitute for correct DB-level user privileges. The
 in your config should itself only have the grants it actually needs. An `IFSAPP` +
 `readwrite` + `allowPlsql` connection can change a live Use Place.
 
-## What's not in this version
+## Roadmap
 
-- OUT/INOUT bind parameters for stored procedures (IN-only; use `describe_procedure` to inspect them)
-- Cross-call transactions (each statement commits on its own — see above)
-- Any UI — this is CLI/config-driven only
-- Wallet / `tnsnames.ora` aliases — only `host` + `port` + `serviceName`, `sid`, or a raw `connectionString`
+- [ ] OUT/INOUT bind parameters for stored procedures (currently IN-only; use `describe_procedure` to inspect them)
+- [ ] Live config reload (no Cursor restart needed to pick up new connections)
+- [ ] Cross-call transactions (each statement currently auto-commits on its own)
+- [ ] Optional packaging so Node.js isn't a hard prerequisite for teammates
+- [ ] Wallet / `tnsnames.ora` alias support (currently only `host` + `port` + `serviceName`, `sid`, or a raw `connectionString`)
+- [ ] A UI (currently CLI/config-driven only)
 
 ---
 
