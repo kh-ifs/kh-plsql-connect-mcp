@@ -1,0 +1,9 @@
+node_modules/
+dist/
+config/connections.json
+.env
+.env.*
+*.log
+*.pem
+*.ora
+

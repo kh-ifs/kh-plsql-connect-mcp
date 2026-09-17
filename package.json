@@ -1,0 +1,30 @@
+{
+  "name": "kh-plsql-connect",
+  "version": "0.2.0",
+  "description": "kh-plsql-connect — local MCP server by Kanchana Henarath for controlled, multi-database access to Oracle/PLSQL from Cursor.",
+  "author": {
+    "name": "Kanchana Henarath",
+    "email": "kanchana.henarath@ifs.com"
+  },
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "kh-plsql-connect": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "tsx --test src/safety.test.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.9.0",
+    "oracledb": "^6.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/oracledb": "^7.0.3",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  }
+}

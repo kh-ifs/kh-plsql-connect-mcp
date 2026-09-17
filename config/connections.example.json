@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "defaultMaxRows": 200,
+    "defaultMaxListRows": 100,
+    "defaultMaxSourceLines": 3000,
+    "queryTimeoutSeconds": 30
+  },
+  "connections": [
+    {
+      "name": "ifs_dev",
+      "host": "your-db-host.example.com",
+      "port": 1521,
+      "serviceName": "YOURPDB",
+      "username": "ifsapp",
+      "password": "yourpassword",
+      "mode": "readonly",
+      "allowPlsql": false,
+      "allowDangerous": false
+    },
+    {
+      "name": "ifs_dev_write",
+      "host": "your-db-host.example.com",
+      "port": 1521,
+      "serviceName": "YOURPDB",
+      "username": "ifsapp",
+      "passwordEnv": "IFS_DEV_DB_PASSWORD",
+      "mode": "readwrite",
+      "allowPlsql": true,
+      "allowDangerous": false
+    }
+  ]
+}
